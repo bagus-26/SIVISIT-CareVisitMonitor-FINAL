@@ -15,15 +15,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
-// Parse endpoint dari REQUEST_URI
+// ─── Proteksi API Proxy Frontend ───
+// Parse endpoint terlebih dahulu untuk mengecualikan login & register
 $uri = $_SERVER['REQUEST_URI'];
 $scriptName = $_SERVER['SCRIPT_NAME'];
 $basePath = dirname($scriptName);
 if ($basePath === '\\' || $basePath === '/') $basePath = '';
-
-// Hapus basePath + api_proxy.php dari URI untuk dapat endpoint
 $endpoint = substr($uri, strlen($basePath));
 $endpoint = preg_replace('#^/api_proxy\.php#', '', $endpoint);
+$cleanPath = parse_url($endpoint, PHP_URL_PATH);
+
+// Jika bukan endpoint login/register, pastikan user sudah login di session frontend
+if ($cleanPath !== '/login' && $cleanPath !== '/register') {
+    if (!isset($_SESSION['api_token']) && !isset($_SESSION['user'])) {
+        http_response_code(401);
+        echo json_encode([
+            'success' => false,
+            'message' => 'Unauthorized: Sesi tidak valid atau telah berakhir. Harap login kembali.'
+        ]);
+        exit;
+    }
+}
 
 $method = $_SERVER['REQUEST_METHOD'];
 $data = null;
