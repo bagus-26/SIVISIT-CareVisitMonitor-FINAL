@@ -1,0 +1,25 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Redirect all requests to the public directory
+    RewriteCond %{REQUEST_URI} !public/
+    RewriteRule ^(.*)$ public/$1 [L,QSA]
+</IfModule>
+
+# Prevent directory listing
+Options -Indexes
+
+# Protect sensitive files
+<FilesMatch "\.(env|git|md|log|lock|bat|sh)$">
+    Require all denied
+</FilesMatch>
+
+# Protect hidden files (starting with dot)
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+# Block access to sensitive directories
+<IfModule mod_rewrite.c>
+    RewriteRule ^(vendor|storage|bootstrap|cache|config|database|resources|routes|tests)(/.*)?$ - [F,L,NC]
+</IfModule>
