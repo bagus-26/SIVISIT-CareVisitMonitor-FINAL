@@ -12,11 +12,13 @@ Route::post('/login',       [AuthController::class, 'login']);
 Route::post('/register',    [AuthController::class, 'register']);
 Route::post('/logout',      [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
+// ─── Public Routes (Bisa diakses tanpa login oleh keluarga) ───
+Route::get('/pasien/{kode_pasien}/monitoring', [PatientController::class, 'monitoring']);
+
 // ─── Protected Routes (Harus Login / Menggunakan Bearer Token) ───
 Route::middleware('auth:sanctum')->group(function () {
     // Patient Routes
     Route::get('/pasien',                       [PatientController::class, 'index']);
-    Route::get('/pasien/{kode_pasien}/monitoring', [PatientController::class, 'monitoring']);
     Route::post('/pasien',                      [PatientController::class, 'store']);
     Route::put('/pasien/{kode_pasien}',         [PatientController::class, 'update']);
     Route::delete('/pasien/{kode_pasien}',      [PatientController::class, 'destroy']);

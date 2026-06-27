@@ -25,8 +25,10 @@ $endpoint = substr($uri, strlen($basePath));
 $endpoint = preg_replace('#^/api_proxy\.php#', '', $endpoint);
 $cleanPath = parse_url($endpoint, PHP_URL_PATH);
 
-// Jika bukan endpoint login/register, pastikan user sudah login di session frontend
-if ($cleanPath !== '/login' && $cleanPath !== '/register') {
+// Jika bukan endpoint login/register atau pencarian monitoring pasien spesifik, pastikan user sudah login
+$isPublicPatientRoute = preg_match('#^/pasien/([^/]+)/monitoring#', $cleanPath);
+
+if ($cleanPath !== '/login' && $cleanPath !== '/register' && !$isPublicPatientRoute) {
     if (!isset($_SESSION['api_token']) && !isset($_SESSION['user'])) {
         http_response_code(401);
         echo json_encode([
