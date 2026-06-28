@@ -34,7 +34,7 @@ Petugas kesehatan dapat mengelola tugas harian serta melakukan entri rekam medis
 
 ## Teknologi
 
-- **Backend:** Laravel 11, PHP 8.2+
+- **Backend:** Laravel 12, PHP 8.2+
 - **Frontend:** PHP Native, HTML5, CSS3, JavaScript
 - **Styling:** Bootstrap 5, Custom CSS (globals.css, landing.css, auth.css, table.css, modal.css)
 - **Database:** MySQL / MariaDB
