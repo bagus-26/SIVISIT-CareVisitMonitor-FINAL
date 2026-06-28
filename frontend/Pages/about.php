@@ -153,14 +153,12 @@ $activeTab = $_GET['tab'] ?? 'tentang';
             gap: 6px;
             user-select: none;
         }
-        .sv-badge:hover { border-color: var(--sv-blue); background: #fff; }
         .sv-badge.active { border-color: var(--sv-blue); background: var(--sv-blue-light); color: var(--sv-blue-dark); }
-
-        .sv-badge-blue {
-            background: var(--sv-blue-light);
-            color: var(--sv-blue-dark);
-            border-color: rgba(0, 122, 255, 0.15);
+        @media (hover: hover) {
+            .sv-badge:hover { border-color: var(--sv-blue); background: #fff; }
         }
+
+
 
         .sv-badge-body {
             max-height: 0; overflow: hidden;
@@ -249,15 +247,17 @@ $activeTab = $_GET['tab'] ?? 'tentang';
         /* ── Interactive About Accordion ── */
         .sv-about-acc { display: flex; flex-direction: column; gap: 10px; }
         .sv-about-item {
-            background: var(--sv-bg);
+            background: transparent;
             border-radius: 12px;
             border: 1.5px solid transparent;
             overflow: hidden;
             cursor: pointer;
             transition: var(--sv-transition);
         }
-        .sv-about-item:hover { border-color: var(--sv-blue-light); }
         .sv-about-item.active { border-color: var(--sv-blue); background: #fff; }
+        @media (hover: hover) {
+            .sv-about-item:hover { border-color: var(--sv-blue-light); background: var(--sv-bg); }
+        }
         .sv-about-header {
             display: flex;
             align-items: center;
@@ -295,15 +295,17 @@ $activeTab = $_GET['tab'] ?? 'tentang';
         /* ── Interactive Step Cards ── */
         .sv-about-steps { display: flex; flex-direction: column; gap: 10px; }
         .sv-about-step {
-            background: var(--sv-bg);
+            background: transparent;
             border-radius: 12px;
             border: 1.5px solid transparent;
             overflow: hidden;
             cursor: pointer;
             transition: var(--sv-transition);
         }
-        .sv-about-step:hover { border-color: var(--sv-blue-light); }
         .sv-about-step.active { border-color: var(--sv-blue); background: #fff; }
+        @media (hover: hover) {
+            .sv-about-step:hover { border-color: var(--sv-blue-light); background: var(--sv-bg); }
+        }
         .sv-about-step-header {
             display: flex;
             align-items: center;
